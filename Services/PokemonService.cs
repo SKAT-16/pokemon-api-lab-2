@@ -8,6 +8,7 @@ namespace PokemonApi.Services
   {
     Task<IEnumerable<Pokemon>> GetAll();
     Task<Pokemon> GetById(string id);
+    Task<List<Pokemon>> GetByType(string type);
     Task AddPokemon(Pokemon pokemon);
     Task UpdatePokemon(string id, Pokemon updatedPokemon);
     Task DeletePokemon(string id);
@@ -34,6 +35,12 @@ namespace PokemonApi.Services
     {
       return await _pokemonCollection.Find(p => p.Id == id).FirstOrDefaultAsync();
     }
+
+    public async Task<List<Pokemon>> GetByType(string type)
+    {
+      return await _pokemonCollection.Find(p => p.Type == type).ToListAsync();
+    }
+
 
     public async Task AddPokemon(Pokemon pokemon)
     {
