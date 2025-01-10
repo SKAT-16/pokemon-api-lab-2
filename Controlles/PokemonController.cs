@@ -36,6 +36,15 @@ namespace PokemonApi.Controllers
       return Ok(pokemon);
     }
 
+    [HttpGet("/type/{type}")]
+    public async Task<ActionResult<IEnumerable<Pokemon>>> GetByType(string type){
+      var pokemons = await _pokemonService.GetByType(type);
+      if (!pokemons.Any())
+        return NotFound($"No pokemons of type {type} found.");
+
+      return Ok(pokemons);
+    } 
+
     [HttpPost]
     public async Task<ActionResult<Pokemon>> AddPokemon([FromBody] Pokemon pokemon)
     {
